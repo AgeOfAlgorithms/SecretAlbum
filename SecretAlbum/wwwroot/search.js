@@ -4,9 +4,9 @@ import { canvasWidth, canvasHeight, decryptImage, verifyLogIn, getSHA256Hash, pr
 export async function queryAlbums() {
     registerAlbum()
 
-    const cvk = window.localStorage.getItem("CVK");
-    const uid = window.localStorage.getItem("UID");
-    const userAlias = window.localStorage.getItem("userAlias");
+    const cvk = window.sessionStorage.getItem("CVK");
+    const uid = window.sessionStorage.getItem("UID");
+    const userAlias = window.sessionStorage.getItem("userAlias");
     verifyLogIn(cvk, uid)
 
     // query available user aliases from the server 
@@ -29,8 +29,8 @@ export async function queryAlbums() {
 }
 
 export async function getSelectedAlbum() {
-    const cvk = window.localStorage.getItem("CVK");
-    const uid = window.localStorage.getItem("UID");
+    const cvk = window.sessionStorage.getItem("CVK");
+    const uid = window.sessionStorage.getItem("UID");
     verifyLogIn(cvk, uid)
 
     const dropdown = document.getElementById("dropdown")
@@ -91,9 +91,9 @@ function constructTableRowNoActions(description, tbody) {
 }
 
 export async function registerAlbum() {
-    const cvk = window.localStorage.getItem("CVK");
-    const uid = window.localStorage.getItem("UID");
-    const userAlias = window.localStorage.getItem("userAlias");
+    const cvk = window.sessionStorage.getItem("CVK");
+    const uid = window.sessionStorage.getItem("UID");
+    const userAlias = window.sessionStorage.getItem("userAlias");
     verifyLogIn(cvk, uid)
     const albumId = await getSHA256Hash(uid + ":" + cvk)
 

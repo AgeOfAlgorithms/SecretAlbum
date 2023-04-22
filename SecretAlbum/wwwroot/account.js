@@ -5,8 +5,8 @@ import { signIn, signUp, AES, Utils, EdDSA, Hash } from 'https://cdn.jsdelivr.ne
 import { canvasWidth, canvasHeight, decryptImage, verifyLogIn, getSHA256Hash, prepareAlbumCanvas, encryptedDefaultImage } from "/utils.js"
 
 export async function showMyAlbum() {
-    var cvk = window.localStorage.getItem("CVK");
-    var uid = window.localStorage.getItem("UID");
+    var cvk = window.sessionStorage.getItem("CVK");
+    var uid = window.sessionStorage.getItem("UID");
     verifyLogIn(cvk, uid)
     const albumId = await getSHA256Hash(uid + ":" + cvk)
 
@@ -48,8 +48,14 @@ async function populateTable(table, respJson, cvk, constructTableRow) {
         }
 
         // make action buttons
+<<<<<<< Updated upstream
         createActionButton("Make Public", requestMakePublic, entry.id, actionCell, imageKeyByteArray);
         createActionButton("Delete", requestDelete, entry.id, actionCell, imageKeyByteArray);
+=======
+        createActionButton("Make Public", requestMakePublic, entry.id, actionCell, imageKey);
+        createActionButton("Share With", requestShareWith, entry.id, actionCell, imageKey);
+        createActionButton("Delete", requestDelete, entry.id, actionCell, imageKey);
+>>>>>>> Stashed changes
     }
 }
 
@@ -83,8 +89,24 @@ function createActionButton(text, requestFunc, imageId, actionCell, imageKeyByte
 async function requestMakePublic(imageId, pubKey) {
     // request my images from server
     const form = new FormData();
-    const cvk = window.localStorage.getItem("CVK");
-    const uid = window.localStorage.getItem("UID");
+    const cvk = window.sessionStorage.getItem("CVK");
+    const uid = window.sessionStorage.getItem("UID");
+    verifyLogIn(cvk, uid)
+    const albumId = await getSHA256Hash(uid + ":" + cvk)
+    form.append("imageId", imageId)
+    form.append("pubKey", pubKey)
+    const resp = await fetch(window.location.origin + `/user/makepublic?albumId=${albumId}`, {
+        method: 'POST',
+        body: form
+    });
+    if (!resp.ok) alert("Something went wrong with uploading the image");
+}
+
+async function requestShareWith(imageId, userList, pubKey) {
+    // request my images from server
+    const form = new FormData();
+    const cvk = window.sessionStorage.getItem("CVK");
+    const uid = window.sessionStorage.getItem("UID");
     verifyLogIn(cvk, uid)
     const albumId = await getSHA256Hash(uid + ":" + cvk)
     form.append("imageId", imageId)

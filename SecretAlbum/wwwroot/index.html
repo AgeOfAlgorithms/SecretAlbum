@@ -9,9 +9,9 @@
         var userAlias = document.getElementById('userAlias_si').value;
         var obj = await signIn.start_Heimdall(user, pass);
 
-        localStorage.setItem("CVK", obj.CVK);
-        localStorage.setItem("UID", obj.UID);
-        localStorage.setItem("userAlias", userAlias);
+        sessionStorage.setItem("CVK", obj.CVK);
+        sessionStorage.setItem("UID", obj.UID);
+        sessionStorage.setItem("userAlias", userAlias);
 
         window.location.replace(window.location.origin + "/main.html#account");
     });
@@ -22,9 +22,9 @@
         var userAlias = document.getElementById('userAlias_si').value;
         var obj = await signUp.start_Heimdall(user, pass);
 
-        localStorage.setItem("CVK", obj.CVK);
-        localStorage.setItem("UID", obj.UID);
-        localStorage.setItem("userAlias", userAlias);
+        sessionStorage.setItem("CVK", obj.CVK);
+        sessionStorage.setItem("UID", obj.UID);
+        sessionStorage.setItem("userAlias", userAlias);
 
         window.location.replace(window.location.origin);
     });
@@ -32,9 +32,9 @@
 </script>
 <script>
 
-    localStorage.removeItem("CVK");
-    localStorage.removeItem("UID");
-    localStorage.removeItem("userAlias");
+    sessionStorage.removeItem("CVK");
+    sessionStorage.removeItem("UID");
+    sessionStorage.removeItem("userAlias");
 
     function switchDiv() {
         if (document.getElementById("login_form").style.display === "none") {

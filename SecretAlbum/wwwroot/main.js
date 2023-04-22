@@ -10,13 +10,13 @@ import { queryAlbums, registerAlbum, getSelectedAlbum } from "/search.js"
 intialize()
 
 function intialize() {
-    var cvk = window.localStorage.getItem("CVK");
-    var uid = window.localStorage.getItem("UID");
+    var cvk = window.sessionStorage.getItem("CVK");
+    var uid = window.sessionStorage.getItem("UID");
     verifyLogIn(cvk, uid)
     registerAlbum()
     showMyAlbum()
     const frontPageAlias = document.getElementById("frontpagealias");
-    frontPageAlias.textContent = window.localStorage.getItem("userAlias");
+    frontPageAlias.textContent = window.sessionStorage.getItem("userAlias");
 }
 
 const btnUpload = document.getElementById('uploadbtn');
@@ -24,9 +24,9 @@ btnUpload.addEventListener('click', upload);
 
 const btnLogout = document.getElementById('logoutbtn');
 btnLogout.addEventListener('click', (click) => {
-    window.localStorage.removeItem("CVK");
-    window.localStorage.removeItem("UID");
-    window.localStorage.removeItem("userAlias");
+    window.sessionStorage.removeItem("CVK");
+    window.sessionStorage.removeItem("UID");
+    window.sessionStorage.removeItem("userAlias");
     window.location.replace(window.location.origin);
 });
 
